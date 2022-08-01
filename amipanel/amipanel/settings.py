@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'workcalendar.apps.WorkcalendarConfig',
     'birthdays.apps.BirthdaysConfig',
     'events.apps.EventsConfig',
+    'django_extensions',
     
 ]
 

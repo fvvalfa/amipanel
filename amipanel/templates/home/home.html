@@ -33,7 +33,7 @@
                 data:{'year':curyear, 'month':curmonth_num+1, 'day':curday}
             })
                 .done(function (response) {
-                    $('#placeevents').html(response);
+                    $('#placebirthdays').html(response);
                 });
                 $.ajax({
                 type: "GET",
@@ -41,7 +41,7 @@
                 data:{'year':curyear, 'month':curmonth_num+1, 'day':curday}
             })
                 .done(function (response) {
-                    $('#placebirthdays').html(response);
+                    $('#placeevents').html(response);
                 });
             $.ajax({
                 type: "GET",

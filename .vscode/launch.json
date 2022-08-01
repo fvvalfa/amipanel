@@ -17,9 +17,10 @@
     "name": "Python: Django",
     "type": "python",
     "request": "launch",
-    "program": "${workspaceFolder}/amipanel/manage.py",
+    "program": "${workspaceFolder}/amipanel/manage.py ",
     "args": [
         "runserver",
+        
     ],
     "django": true
 }

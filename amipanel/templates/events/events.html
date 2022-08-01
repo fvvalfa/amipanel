@@ -1,1 +1,49 @@
 <div class="events__header">События сегодня</div>
+
+{% if pre_eventvalue.count == 0 and cur_eventvalue.count == 0 and next_eventvalue.count == 0 %}
+<div class="events_noevents">Сегодня нет событий</div>
+{% else %}
+
+<div class="events">
+  {% for event in pre_eventvalue %}
+
+  <div class="events_item">
+    <div class="row">
+      <div class="col-sm-auto">
+        <div class="events__pretimeitem">{{event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
+      </div>
+      <div class="col-sm">
+        <div class="events__prenameitem">{{event.event_name}}</div>
+      </div>
+    </div>
+  </div>
+
+
+  {% endfor %}
+
+  {% for event in cur_eventvalue %}
+  <div class="events_item">
+    <div class="row">
+      <div class="col-sm-auto">
+        <div class="events__curtimeitem">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
+      </div>
+      <div class="col-sm">
+        <div class="events__curnameitem">{{event.event_name}}</div>
+      </div>
+    </div>
+
+  </div>
+  {% endfor %}
+  {% for event in next_eventvalue %}
+  <div class="events_item">
+    <div class="row">
+      <div class="col-sm-auto">
+        <div class="events__nexttimeitem">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
+      </div>
+      <div class="col-sm">
+        <div class="events__nextnameitem">{{event.event_name}}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
