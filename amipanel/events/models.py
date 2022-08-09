@@ -1,5 +1,6 @@
 import datetime
 from pyexpat import model
+from django.utils import timezone
 from django.db.models import Q,F,ExpressionWrapper
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
@@ -27,15 +28,19 @@ class Events(models.Model):
     #stop_event.short_description = 'Окончание события'
 
     def get_events_by_date(self, year, month, day):
-        now = datetime.datetime.now()
+        now = timezone.now()
         date=datetime.date(year, month, day)
         try:
-            pre_eventvalue = Events.objects.filter(Q(start_event__date=date)).annotate(stop_event_calc=ExpressionWrapper(F('start_event')+F('duration'), output_field=models.DateTimeField())).filter(stop_event_calc__time__lt=now.time())
-            cur_eventvalue = Events.objects.filter(Q(start_event__date=date)&
-            Q(start_event__time__lte = now.time())).annotate(stop_event_calc=ExpressionWrapper(F('start_event')+F('duration'), output_field=models.DateTimeField())).filter(stop_event_calc__time__gte=now.time())
-            print(cur_eventvalue.count)
-            next_eventvalue = Events.objects.filter(Q(start_event__date=date)&
-            Q(start_event__time__gt = now.time()))
+            #Поиск прошедших событий 
+            pre_eventvalue = Events.objects.annotate(stop_event_calc=ExpressionWrapper(F('start_event')+F('duration'), output_field=models.DateTimeField())).filter(Q(start_event__date=date)).filter(stop_event_calc__lt=now)
+            print(pre_eventvalue)
+            #Поиск текущих событий
+            cur_eventvalue = Events.objects.\
+            annotate(stop_event_calc=ExpressionWrapper(F('start_event')+F('duration'), output_field=models.DateTimeField())).\
+            filter(Q(start_event__date=date)&Q(start_event__lte = now)&Q(stop_event_calc__gte=now))
+            print(cur_eventvalue)
+            #Поиск будущих событий
+            next_eventvalue = Events.objects.filter(Q(start_event__date=date)&Q(start_event__gt = now))
             print(now.time())
             print(next_eventvalue)
             print(pre_eventvalue.count())

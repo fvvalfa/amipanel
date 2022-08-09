@@ -6,7 +6,9 @@ from pkg_resources import require
 from django.http import JsonResponse
 from .models import Needreload
 
+from django.views.decorators.csrf import ensure_csrf_cookie
 
+@ensure_csrf_cookie
 def do_needreload(request):
     req = Needreload()
     req = req.do_need_reload()
