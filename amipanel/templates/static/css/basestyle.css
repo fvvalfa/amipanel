@@ -114,6 +114,7 @@ body {
     border-right: 1px solid #EE7C15;
     padding: 0px 10px 0px 0px;
 }
+
 /* стиль меяца */
 .month {
     width: 100%;
@@ -140,7 +141,7 @@ body {
 .thu,
 .fri {
     color: black;
-    
+
     border: 1px solid #EE7C15;
     padding: 5px 0;
     font-size: 50px;
@@ -178,18 +179,19 @@ body {
     border-left: 1px solid #fff;
     border-bottom: 1px solid #EE7C15;
     padding: 8px 0;
-    
+
     padding: 5px 0;
     font-weight: 400;
     font-size: 40px;
     line-height: 36px;
     background: #EE7C15;
 }
-.mon_head:first-child{
+
+.mon_head:first-child {
     border-left: 1px solid #EE7C15;
 }
 
-.sun_head:last-child{
+.sun_head:last-child {
     border-right: 1px solid #EE7C15;
 }
 
@@ -208,14 +210,16 @@ body {
     border: 1px solid #EE7C15;
 }
 
-.events{
+.events {
     text-align: center;
 }
-.events__header{
+
+.events__header {
     font-size: 50px;
     color: #EE7C15;
 }
-.events__header::after{
+
+.events__header::after {
     content: "";
     width: 500px;
     height: 2px;
@@ -223,57 +227,83 @@ body {
     DISPLAY: block;
     margin: AUTO auto;
 }
-.events_noevents{
+
+.events_noevents {
     text-align: center;
     color: #EE7C15;
     font-size: 30px;
     padding-top: 50px;
 }
 
-.events{
-    padding: 20px;
-}
-.events_item{
-    text-align: left;
-}
-.events__pretimeitem{
-    font-size: 15px;
-    color: #DCDCDC;;
-    
-}
-.events__prenameitem{
-    font-size: 15px;
-    color:  #DCDCDC;;
-    
-}
-.events__curtimeitem{
-    font-size: 25px;
-    color: #EE7C15;
-    display:inline-block;
-  
-}
-.events__curnameitem{
-    font-size:25px;
-    color: #EE7C15;
-    display:inline-block;
-   
-}
-.events__nexttimeitem{
-    font-size: 20px;
-    color: #EE7C15;
-    display:inline-block;
-}
-.events__nextnameitem{
-    font-size: 20px;
-    color: #EE7C15;
-    display:inline-block;
+.events {
+    padding: 10px;
 }
 
-.events_item::after
-{
+.events_item {
+    text-align: left;
+}
+
+/* Прошедшее событие */
+.events__preitem,
+.events__curitem,
+.events__nextitem {
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 5px;
+
+    display: flex;
+    align-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.events__preitem {
+    color: #DCDCDC;
+    border: 1px solid #DCDCDC;
+    font-size: 15px;
+}
+
+.events__curitem {
+    color: #EE7C15;
+    border: 2px solid #ee7c15;
+    font-size: 30px;
+}
+
+.events__nextitem {
+    color: #EE7C15;
+    border: 1px solid #ee7c15;
+    font-size: 25px;
+}
+
+.events__preitem_time,
+.events__curitem_time,
+.events__nextitem_time {
+    float: left;
+    width: 100%;
+    text-align: left;
+}
+
+.events__preitem_name,
+.events__curitem_name,
+.events__nextitem_name {
+    margin: auto;
+
+
+}
+
+.events__preitem_time::after,
+.events__curitem_time::after,
+.events__nextitem_time::after {
     content: "";
     height: 1px;
-    background-color: #DCDCDC;
     DISPLAY: block;
     margin: AUTO auto;
+}
+.events__nextitem_time::after,
+.events__curitem_time::after
+{
+    background-color: #EE7C15;
+}
+.events__preitem_time::after {
+    background-color: #DCDCDC;
 }

@@ -26,6 +26,8 @@ urlpatterns = [
     path('get_calendar/', include('workcalendar.urls')),
     path('get_birthdays/', include('birthdays.urls')),
     path('get_events_by_date/', include('events.urls')),
+    path('needreload/', include('needreload.urls')),
+    #path('reloadconfirm/', include('needreload.urls')),
     
 ]
 

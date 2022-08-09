@@ -2,6 +2,21 @@
 {% load static %}
 {% block scripts %}
 <script>
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
     var append_increment = 0;
     var d = new Date();
     var year = d.getFullYear();
@@ -13,15 +28,27 @@
     // var curmonth_num = curd.getMonth()
     // var curday = curd.getDate();
     var firstload = true;
+    var required;
 
     setInterval(function () {
         curd = new Date();
         curyear = curd.getFullYear();
         curmonth_num = curd.getMonth()
         curday = curd.getDate();
-        
+        //срабатывает каждую минуту
 
-        if ((year != curyear || month_num != curmonth_num || day != curday) || firstload) {
+        $.ajax({
+            type: "GET",
+            url: "{% url 'do_needreload' %}"
+
+        })
+            .done(function (response) {
+                required = response;
+            });
+
+
+        //Срабатывает каждый день
+        if ((year != curyear || month_num != curmonth_num || day != curday) || firstload || required.required_reload) {
             firstload = false
             d = new Date();
             year = d.getFullYear();
@@ -29,16 +56,16 @@
             day = d.getDate();
             $.ajax({
                 type: "GET",
-                url: "{% url 'get_all_birthdays' %}", 
-                data:{'year':curyear, 'month':curmonth_num+1, 'day':curday}
+                url: "{% url 'get_all_birthdays' %}",
+                data: { 'year': curyear, 'month': curmonth_num + 1, 'day': curday }
             })
                 .done(function (response) {
                     $('#placebirthdays').html(response);
                 });
-                $.ajax({
+            $.ajax({
                 type: "GET",
-                url: "{% url 'get_events_by_date' %}", 
-                data:{'year':curyear, 'month':curmonth_num+1, 'day':curday}
+                url: "{% url 'get_events_by_date' %}",
+                data: { 'year': curyear, 'month': curmonth_num + 1, 'day': curday }
             })
                 .done(function (response) {
                     $('#placeevents').html(response);
@@ -52,6 +79,17 @@
                     $('#placecalendar').html(response);
                     append_increment += 10;
                 });
+            $.ajax({
+                type: "POST",
+                url: "{% url 'needreload' '0' %}",
+                data: { csrfmiddlewaretoken: getCookie('csrftoken') }
+
+
+            })
+                .done(function (response) {
+                    required = response;
+                });
+
         }
     }, 1000)
 </script>
@@ -70,7 +108,7 @@
                     {% include '_header.html' %}
                     <div class="row g-0">
                         <div class="col-md-6 events">
-                            <div id ="placeevents"></div> 
+                            <div id="placeevents"></div>
                         </div>
                         <div class="col-md-6 calendar">
                             <div id="placecalendar"></div>
@@ -78,7 +116,10 @@
                     </div>
                     <div class="row g-0">
                         <div class="col-md-6">
-                            <div id="placebirthdays"></div>
+                            <div>leftfooter</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="placebirthdays">Дни рождения</div>
                         </div>
                     </div>
                 </div>

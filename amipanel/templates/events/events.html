@@ -7,14 +7,11 @@
 <div class="events">
   {% for event in pre_eventvalue %}
 
-  <div class="events_item">
-    <div class="row">
-      <div class="col-sm-auto">
-        <div class="events__pretimeitem">{{event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
-      </div>
-      <div class="col-sm">
-        <div class="events__prenameitem">{{event.event_name}}</div>
-      </div>
+
+  <div class="row">
+    <div class="events__preitem">
+      <div class="events__preitem_time">{{event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
+      <div class="events__preitem_name">{{event.event_name}}</div>
     </div>
   </div>
 
@@ -22,28 +19,20 @@
   {% endfor %}
 
   {% for event in cur_eventvalue %}
-  <div class="events_item">
-    <div class="row">
-      <div class="col-sm-auto">
-        <div class="events__curtimeitem">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
-      </div>
-      <div class="col-sm">
-        <div class="events__curnameitem">{{event.event_name}}</div>
-      </div>
+  <div class="row">
+    <div class="events__curitem">
+      <div class="events__curitem_time">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
+      <div class="events__curitem_name">{{event.event_name}}</div>
     </div>
-
   </div>
   {% endfor %}
   {% for event in next_eventvalue %}
-  <div class="events_item">
-    <div class="row">
-      <div class="col-sm-auto">
-        <div class="events__nexttimeitem">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
-      </div>
-      <div class="col-sm">
-        <div class="events__nextnameitem">{{event.event_name}}</div>
-      </div>
+  <div class="row">
+    <div class="events__nextitem">
+      <div class="events__nextitem_time">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }} </div>
+      <div class="events__nextitem_name">{{event.event_name}}</div>
     </div>
-    {% endfor %}
   </div>
+  {% endfor %}
+
   {% endif %}

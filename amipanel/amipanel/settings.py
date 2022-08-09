@@ -26,9 +26,10 @@ SECRET_KEY = 'django-insecure-1sfdu(=)vzre)0tn#w!m()(3wi-6t#r&x7m!q+5=llea1dlnk(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
-
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = None
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'workcalendar.apps.WorkcalendarConfig',
     'birthdays.apps.BirthdaysConfig',
     'events.apps.EventsConfig',
+    'needreload.apps.NeedreloadConfig',
     'django_extensions',
     
 ]

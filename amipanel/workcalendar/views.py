@@ -8,7 +8,7 @@ from .HTTPWorkCalendar.httpworkcalendar import HTTPWorkCalendar
 # Create your views here.
 
 def get_calendar(request):
-    locale.setlocale(locale.LC_ALL, 'ru_RU')
+    locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
     cal = HTTPWorkCalendar()
 #    cal = HTMLCalendar()
     cal.cssclass_month_head="month_head"
