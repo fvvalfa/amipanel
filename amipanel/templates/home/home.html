@@ -2,21 +2,7 @@
 {% load static %}
 {% block scripts %}
 <script>
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
+
     var append_increment = 0;
     var d = new Date();
     var year = d.getFullYear();
@@ -111,15 +97,15 @@
                             <div id="placeevents"></div>
                         </div>
                         <div class="col-md-6 calendar">
-                            <div id="placecalendar"></div>
+                            <div id="placecalendar" style ="padding: 0px 20px 0px 0px;"></div>
                         </div>
                     </div>
                     <div class="row g-0">
                         <div class="col-md-6">
-                            <div>leftfooter</div>
+                            <div></div>
                         </div>
-                        <div class="col-md-6">
-                            <div id="placebirthdays">Дни рождения</div>
+                        <div class="col-md-6  ">
+                            <div id="placebirthdays" style ="padding: 0px 20px 0px 0px;">Дни рождения</div>
                         </div>
                     </div>
                 </div>

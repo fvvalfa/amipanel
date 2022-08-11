@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+
+{% block extrastyle %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/extrastyle.css' %}">
+
+<script type="text/javascript" src="{% static '/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static '/js/scripts.js' %}"></script>
+
+
+{{ block.super }}
+{% endblock %}
+
+
+{% block userlinks %}
+{{ block.super }}
+        <button id = "button_reload_site"  class="reloadsite_button" >
+                Обновить страницу
+        </button>
+        
+
+
+
+<script type="text/javascript" src="{% static 'admin/js/admin_reload_site.js' %}"></script>
+{% endblock %}
+

@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 class birthday(models.Model):
     day = models.DateField()
     name = models.CharField(max_length=150)
+    birthdaywishes = models.CharField(max_length=150, blank=True, default="С днем рождения! Пусть мечты сбываются, счастье не заканчивается, удача не покидает, а близкие всегда будут рядом.")
     department = models.CharField(max_length=150, blank=True)
     
     class Meta():

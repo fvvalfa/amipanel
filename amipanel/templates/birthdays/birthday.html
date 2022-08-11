@@ -1,41 +1,27 @@
-<script>
-  var slideIndex = 0;
-  showSlides();
-  
-  function showSlides() {
-      var i;
-      var slides = document.getElementsByClassName("mySlides");
-      var dots = document.getElementsByClassName("dot");
-      for (i = 0; i < slides.length; i++) {
-         slides[i].style.display = "none";  
-      }
-      slideIndex++;
-      if (slideIndex > slides.length) {slideIndex = 1}    
-      for (i = 0; i < dots.length; i++) {
-          dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex-1].style.display = "block";  
-      dots[slideIndex-1].className += " active";
-      setTimeout(showSlides, 4000); // Change image every 2 seconds
-  }
-  </script>
-  
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/bd_slides.css' %}">
+
+
 
 {% if birthdays.count > 0 %}
-{% for birthday in birthdays%}
-<div class="row g-0">
-  <div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-      <div class="col-md-4">
-        <img src="..." class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title1 ">{{birthday.name}}</h5>
-        </div>
-      </div>
-    </div>
+  <div class="card text-center birthdayheader" style="margin: 40px 0px 0px auto; border-color: #ee7c15;">
+  <div class="card-header birthdayheader" style = "border-color: #ee7c15;"> День рождения сегодня</div>
+  {% for birthday in birthdays%}
+  <div class="card-body text-dark mySlides slidefade" style="background-color: #ee7c15">
+    <h5 class="card-title text-white">{{birthday.name}}</h5>
+      {% if birthday.department %} 
+      <p class="text-muted">({{birthday.department}})</p> 
+      {% endif %}
+    
+    
+    <p class="card-text">{{birthday.birthdaywishes}}</p>
+    
   </div>
   {% endfor %}
-  {% endif %}
-  
+</div>
+
+{% endif %}
+<script type="text/javascript">
+
+  showSlides();
+</script>

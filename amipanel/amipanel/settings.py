@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'needreload.apps.NeedreloadConfig',
     'django_extensions',
+    'django_bootstrap5',
     
 ]
 
