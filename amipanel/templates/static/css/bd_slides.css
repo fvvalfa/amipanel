@@ -84,11 +84,20 @@
 
 .birthdayheader{
   color: #ee7c15;
+  font-size: 25px;
 }
 
 .birthdayitem{
   color: #ee7c15;
 }
+
+.bd_card{
+  display: flex;
+  flex-direction: row;
+  
+}
+
+
 
 @-webkit-keyframes slidefade {
   from {opacity: .4}

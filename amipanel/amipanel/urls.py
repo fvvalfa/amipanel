@@ -17,9 +17,9 @@ Including another URLconf
 from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf import settings
 from amipanel.views import show_home_page
-
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', show_home_page),
@@ -27,7 +27,10 @@ urlpatterns = [
     path('get_birthdays/', include('birthdays.urls')),
     path('get_events_by_date/', include('events.urls')),
     path('needreload/', include('needreload.urls')),
+    path('weather/', include('weather.urls')),
     #path('reloadconfirm/', include('needreload.urls')),
     
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

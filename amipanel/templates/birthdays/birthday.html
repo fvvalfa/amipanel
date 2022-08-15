@@ -1,27 +1,27 @@
 {% load static %}
+
 <link rel="stylesheet" href="{% static '/css/bd_slides.css' %}">
-
-
-
 {% if birthdays.count > 0 %}
-  <div class="card text-center birthdayheader" style="margin: 40px 0px 0px auto; border-color: #ee7c15;">
-  <div class="card-header birthdayheader" style = "border-color: #ee7c15;"> День рождения сегодня</div>
+<div class="card text-center birthdayheader" style="margin: 20px 0px 0px auto; border-color: #ee7c15;">
+  <div class="card-header birthdayheader" style="border-color: #ee7c15;"> День рождения сегодня</div>
   {% for birthday in birthdays%}
   <div class="card-body text-dark mySlides slidefade" style="background-color: #ee7c15">
-    <h5 class="card-title text-white">{{birthday.name}}</h5>
-      {% if birthday.department %} 
-      <p class="text-muted">({{birthday.department}})</p> 
-      {% endif %}
-    ва
-    
-    <p class="card-text">{{birthday.birthdaywishes}}</p>
-    
+    <div class="bd_card">
+      <div class="bd_card_photo">
+        <img src="{{birthday.photo.url}}" />
+      </div>
+    <div class="bd_card_text">
+      <h5 class="card-title text-white">{{birthday.name}}</h5>
+      {% if birthday.department %}
+        <span class="text-muted">({{birthday.department}})</span>
+        {% endif %}
+        <p class="card-text">{{birthday.birthdaywishes}}</p>
+      </div>
+    </div>
   </div>
   {% endfor %}
 </div>
-
 {% endif %}
 <script type="text/javascript">
-
   showSlides();
 </script>

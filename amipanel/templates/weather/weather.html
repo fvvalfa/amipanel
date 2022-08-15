@@ -1,0 +1,33 @@
+{% load static %}
+
+<div class="weather">
+  <div class="weather_city">{{weatherparam.city}}</div>
+  <div class="weather_main_parameter">
+    <div class="weather__icon">
+      {% with 'img/weather/'|add:weatherparam.icon_name|add:'.svg' as image_static %}
+      <img src="{% static  image_static %}"> </img>
+      {% endwith %}
+    </div>
+    <div class="weather_temp">{% if temp < 0 %} {% endif %} {{weatherparam.temperature}}°C </div>
+        <div class="weather_main_detailed">
+          <div class="weather_detailed_status">{{weatherparam.detailed_status}}</div>
+          <div class="weather_feels_like">Ощущается как {{weatherparam.temperaturefeelslike}}</div>
+        </div>
+    </div>
+    <div class="weather_add_parameter">
+      <div class="weather_wind">
+        <img class = "weather_icon" src="{% static  '/img/weather/windicon.svg' %}"> </img>
+        <div class="weather_wind_item">{{weatherparam.windspeed}} м/с</div>
+        <img style="margin-left: 10px ;transform: rotate({{weatherparam.winddeg}}deg)" class = "weather_direction" src="{% static  '/img/weather/strelka.svg' %}"> </img>
+      </div>
+      <div class="weather_humidity">
+        <img class = "weather_icon" src="{% static  '/img/weather/humidityicon.svg' %}"> </img>
+        <div class="weather_humidity_item">{{weatherparam.humidity}}%</div>
+      </div>
+      <div class="weather_pressure">
+        <img class = "weather_icon" src="{% static  '/img/weather/pressureicon.svg' %}"> </img>
+        <div class="weather_pressure_item">{{weatherparam.pressure}} мм рт.ст.</div>
+      </div>
+    </div>
+  </div>
+  

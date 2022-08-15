@@ -1,3 +1,4 @@
+
 function clock() {
     var d = new Date();
     var month_num = d.getMonth()
@@ -5,6 +6,7 @@ function clock() {
     var hours = d.getHours();
     var minutes = d.getMinutes();
     var seconds = d.getSeconds();
+    
 
     month = new Array("января", "февраля", "марта", "апреля", "мая", "июня",
         "июля", "августа", "сентября", "октября", "ноября", "декабря");

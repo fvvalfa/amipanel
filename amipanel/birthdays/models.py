@@ -3,11 +3,15 @@ from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 
 class birthday(models.Model):
-    day = models.DateField()
-    name = models.CharField(max_length=150)
-    birthdaywishes = models.CharField(max_length=150, blank=True, default="С днем рождения! Пусть мечты сбываются, счастье не заканчивается, удача не покидает, а близкие всегда будут рядом.")
-    department = models.CharField(max_length=150, blank=True)
-    
+    day = models.DateField(verbose_name='Дата')
+    name = models.CharField(max_length=150,verbose_name='ФИО')
+    birthdaywishes = models.CharField(max_length=150,\
+     blank=True,\
+     verbose_name='Пожелания',\
+     default="С днем рождения! Пусть мечты сбываются, счастье не заканчивается, удача не покидает, а близкие всегда будут рядом.")
+    department = models.CharField(max_length=150,verbose_name='Подразделение', blank=True)
+    photo = models.ImageField(verbose_name='Фото',blank=True,upload_to="photo/")
+
     class Meta():
         db_table='birthdays'
         verbose_name = "День рождения"

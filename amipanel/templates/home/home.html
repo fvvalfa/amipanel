@@ -5,6 +5,9 @@
 
     var append_increment = 0;
     var d = new Date();
+    var pre_weather_timer = new Date();    
+    
+
     var year = d.getFullYear();
     var month_num = d.getMonth()
     var day = d.getDate();
@@ -15,6 +18,9 @@
     // var curday = curd.getDate();
     var firstload = true;
     var required;
+    console.log(d);
+
+    
 
     setInterval(function () {
         curd = new Date();
@@ -31,8 +37,23 @@
             .done(function (response) {
                 required = response;
             });
-
-
+        
+        
+        var calcDate =  new Date(pre_weather_timer.getTime() + 15*60000)
+        //Обновление погоды каждые 15 минут
+        if ( calcDate < curd || firstload || required.required_reload){
+            console.log(calcDate);
+            pre_weather_timer= new Date();
+            $.ajax({
+                type: "GET",
+                url: "{% url 'weather' %}"  // URL to your view that serves new info
+                // data: {'append_increment': append_increment}
+            })
+            .done(function (response) {
+                $('#weatherplace').html(response);
+                
+            });
+    }
         //Срабатывает каждый день
         if ((year != curyear || month_num != curmonth_num || day != curday) || firstload || required.required_reload) {
             firstload = false
@@ -63,8 +84,18 @@
             })
                 .done(function (response) {
                     $('#placecalendar').html(response);
-                    append_increment += 10;
+                    
                 });
+            // $.ajax({
+            //     type: "GET",
+            //     url: "{% url 'weather' %}"  // URL to your view that serves new info
+            //     // data: {'append_increment': append_increment}
+            // })
+            //     .done(function (response) {
+            //         $('#weatherplace').html(response);
+                    
+            //     });
+
             $.ajax({
                 type: "POST",
                 url: "{% url 'needreload' '0' %}",
@@ -97,7 +128,7 @@
                             <div id="placeevents"></div>
                         </div>
                         <div class="col-md-6 calendar">
-                            <div id="placecalendar" style ="padding: 0px 20px 0px 0px;"></div>
+                            <div id="placecalendar" style="padding: 0px 20px 0px 0px;"></div>
                         </div>
                     </div>
                     <div class="row g-0">
@@ -105,7 +136,7 @@
                             <div></div>
                         </div>
                         <div class="col-md-6  ">
-                            <div id="placebirthdays" style ="padding: 0px 20px 0px 0px;">Дни рождения</div>
+                            <div id="placebirthdays" style="padding: 0px 20px 0px 0px;">Дни рождения</div>
                         </div>
                     </div>
                 </div>
