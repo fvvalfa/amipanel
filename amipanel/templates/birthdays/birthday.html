@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <link rel="stylesheet" href="{% static '/css/bd_slides.css' %}">
 {% if birthdays.count > 0 %}
 
@@ -8,7 +9,11 @@
 <div class="mySlides slidefade" style="border: solid 1px #ee7c15; border-radius: 5px;  overflow: auto;">
   <div class="bd_card">
     <div class="bd_card_photo">
-      <img width="185"  height="250" src="{{birthday.photo.url}}" />
+      {% if birthday.photo %}
+        <img width="185"  height="250" src="{{birthday.photo.url}}" />
+      {% else %}
+        <img width="185"  height="250" src='{% get_media_prefix %}photo/nophoto.jpg' />
+      {% endif %}
     </div>
     <div class="bd_card_text">
       <div class="birthdayheader">{{birthday.name}}</div>
@@ -23,5 +28,5 @@
 
 {% endif %}
 <script type="text/javascript">
-  showSlides();
+  startSlides();
 </script>
