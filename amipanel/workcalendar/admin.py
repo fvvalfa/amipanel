@@ -9,8 +9,10 @@ from django.forms import DateField
 from .models import CalendarDays
 from django.shortcuts import render
 from django.urls import path, reverse
-import csv
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
+from django.utils.html import format_html
 # Register your models here.
+from django.utils import timezone
 
 
 class CsvImportForm(forms.Form):
@@ -19,6 +21,7 @@ class CsvImportForm(forms.Form):
         widget=forms.ClearableFileInput(
             attrs={
                 'accept':".csv",
+                'class': 'send_file_button'
                 }
             )
         )
@@ -26,9 +29,8 @@ class CsvImportForm(forms.Form):
 
 class CalendarDayAdmin(admin.ModelAdmin):
     list_display=('day', 'hours', 'day_of_the_week')
-    list_filter = (
-        ('day', DateFieldListFilter),
-    )
+    list_filter = (('day', DateRangeFilter), )
+
     list_editable = ('hours',)
 
     def get_urls(self) :
@@ -62,7 +64,7 @@ class CalendarDayAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(url)
         form=CsvImportForm()
         data={'form': form}
-        return render(request, 'admin/workcalendar/csv_upload.html', data)
+        return render(request, 'admin/csv_upload.html', data)
 
 #  инициализация значение в поле часы 
     def get_form(self, request, obj=None, **kwargs):
@@ -71,5 +73,19 @@ class CalendarDayAdmin(admin.ModelAdmin):
         return form
 
 
+    # If you would like to add a default range filter
+    # method pattern "get_rangefilter_{field_name}_default"
+    def get_rangefilter_day_default(self, request):
+        now = timezone.now()
+        date=now.date()
+        return (date, date)
+
+    # If you would like to change a title range filter
+    # method pattern "get_rangefilter_{field_name}_title"
+    # def get_rangefilter_day_title(self, request, field_path):
+    #     return 'custom title'
 
 admin.site.register(CalendarDays, CalendarDayAdmin)
+
+
+
