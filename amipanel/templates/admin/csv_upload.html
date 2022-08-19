@@ -1,0 +1,31 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block content %}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="{% static '/admin/js/upload_file.js' %}"></script>
+
+<div>
+    <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="form-select-file">
+                <label class="label_input" id='label_input'>
+                    <i class="material-icons">attach_file</i>
+                    <span class="title">Добавить файл</span>
+                    {{form.csv_upload}}
+
+                </label>
+                <div class="filelabel">
+                    <label for="{{form.csv_upload.id_for_label}}">Не выбран файл</label>
+                </div>
+            <button class="send_file_button" type="submit">Отправить</button>
+            <div class="invalid-feedback">
+                {{form.csv_upload.errors}}
+            </div>
+        </div>
+
+        </div>
+    </form>
+
+</div>
+{% endblock %}

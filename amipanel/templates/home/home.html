@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block scripts %}
+<link rel="stylesheet" href="{% static '/css/calendar.css' %}">
 <script>
 
     var append_increment = 0;
     var d = new Date();
-    var pre_weather_timer = new Date();    
+    var pre_weather_timer = new Date();
+    pre_weather_timer.setSeconds(0)
+    var pre_event_timer = new Date();
+    pre_event_timer.setSeconds(0);
     
 
     var year = d.getFullYear();
@@ -20,7 +24,7 @@
     var required;
     console.log(d);
 
-    
+
 
     setInterval(function () {
         curd = new Date();
@@ -37,23 +41,39 @@
             .done(function (response) {
                 required = response;
             });
-        
-        
-        var calcDate =  new Date(pre_weather_timer.getTime() + 15*60000)
+
+
         //Обновление погоды каждые 15 минут
-        if ( calcDate < curd || firstload || required.required_reload){
-            console.log(calcDate);
-            pre_weather_timer= new Date();
+        var weather_timer = 15 * 60000
+        if (new Date(pre_weather_timer.getTime() + weather_timer) < curd || firstload || required.required_reload) {
+            pre_weather_timer = new Date();
+            pre_weather_timer.setSeconds(0)
             $.ajax({
                 type: "GET",
                 url: "{% url 'weather' %}"  // URL to your view that serves new info
                 // data: {'append_increment': append_increment}
             })
-            .done(function (response) {
-                $('#weatherplace').html(response);
-                
-            });
-    }
+                .done(function (response) {
+                    $('#weatherplace').html(response);
+
+                });
+        }
+        //Обновление погоды каждые 15 минут
+        var event_timer = 1 * 60000
+        if (new Date(pre_event_timer.getTime() + event_timer) < curd || firstload || required.required_reload) {
+            console.log(curd);
+            pre_event_timer = new Date();
+            pre_event_timer.setSeconds(0);
+            
+            $.ajax({
+                type: "GET",
+                url: "{% url 'get_events_by_date' %}"
+                //data: { 'year': curyear, 'month': curmonth_num + 1, 'day': curday }
+            })
+                .done(function (response) {
+                    $('#placeevents').html(response);
+                });
+        }
         //Срабатывает каждый день
         if ((year != curyear || month_num != curmonth_num || day != curday) || firstload || required.required_reload) {
             firstload = false
@@ -71,8 +91,8 @@
                 });
             $.ajax({
                 type: "GET",
-                url: "{% url 'get_events_by_date' %}",
-                data: { 'year': curyear, 'month': curmonth_num + 1, 'day': curday }
+                url: "{% url 'get_events_by_date' %}"
+                //data: { 'year': curyear, 'month': curmonth_num + 1, 'day': curday }
             })
                 .done(function (response) {
                     $('#placeevents').html(response);
@@ -84,7 +104,7 @@
             })
                 .done(function (response) {
                     $('#placecalendar').html(response);
-                    
+
                 });
             // $.ajax({
             //     type: "GET",
@@ -93,7 +113,7 @@
             // })
             //     .done(function (response) {
             //         $('#weatherplace').html(response);
-                    
+
             //     });
 
             $.ajax({
@@ -129,14 +149,12 @@
                         </div>
                         <div class="col-md-6 calendar">
                             <div id="placecalendar" style="padding: 0px 20px 0px 0px;"></div>
+                            <div id="placebirthdays" style="padding: 0px 20px 0px 0px;">Дни рождения</div>
                         </div>
                     </div>
                     <div class="row g-0">
                         <div class="col-md-6">
                             <div></div>
-                        </div>
-                        <div class="col-md-6  ">
-                            <div id="placebirthdays" style="padding: 0px 20px 0px 0px;">Дни рождения</div>
                         </div>
                     </div>
                 </div>

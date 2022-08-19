@@ -1,0 +1,9 @@
+.reloadsite_button{
+    padding: 10px;
+    border-radius: 10px;
+    border: 0px;
+    cursor: pointer;
+    margin-left: 10px;
+    background-color: black;
+    color: aliceblue;
+}

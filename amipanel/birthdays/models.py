@@ -1,3 +1,4 @@
+from cProfile import label
 from pyexpat import model
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,7 +11,9 @@ class birthday(models.Model):
      verbose_name='Пожелания',\
      default="С днем рождения! Пусть мечты сбываются, счастье не заканчивается, удача не покидает, а близкие всегда будут рядом.")
     department = models.CharField(max_length=150,verbose_name='Подразделение', blank=True)
-    photo = models.ImageField(verbose_name='Фото',blank=True,upload_to="photo/")
+    photo = models.ImageField(verbose_name='Фото',blank=True,upload_to="photo/", help_text='Размер фото 185х250')
+    def __str__(self):
+        return self.name
 
     class Meta():
         db_table='birthdays'

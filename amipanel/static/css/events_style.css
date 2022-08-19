@@ -1,0 +1,139 @@
+
+.events {
+    text-align: center;
+}
+
+.events__header {
+    font-size: 50px;
+    color: #EE7C15;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+.events__header::after,
+.important_events__header::after {
+    content: "";
+    width: 500px;
+    height: 2px;
+    background-color: #EE7C15;
+    DISPLAY: block;
+    margin: AUTO auto;
+}
+
+.events_noevents {
+    text-align: center;
+    color: #EE7C15;
+    font-size: 30px;
+    padding-top: 50px;
+}
+
+.events {
+    padding: 0px 10px 10px 10px;
+}
+
+.events_item {
+    text-align: left;
+    
+}
+
+
+
+/* Прошедшее событие */
+.events__preitem,
+.events__curitem,
+.events__nextitem,
+.events__next_importantitem {
+    border-radius: 4px;
+    display: flex;
+    align-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.events__preitem {
+    color: #DCDCDC;
+    border: 1px solid #DCDCDC;
+    font-size: 15px;
+}
+
+.events__curitem {
+    color: #EE7C15;
+    border: 2px solid #ee7c15;
+    font-size: 30px;
+}
+
+.events__nextitem
+{
+    color: #EE7C15;
+    border: 1px solid #ee7c15;
+    font-size: 25px;
+}
+.events__next_importantitem{
+    border: 3px solid #ee7c15;
+    color: #EE7C15;
+    font-size: 25px;
+}
+
+
+.events__preitem_time,
+.events__curitem_time,
+.events__nextitem_time {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-family: 'Russo One', sans-serif;
+}
+
+
+.important_events__item_time,
+.important_events__item_name{
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    
+}
+
+.events__preitem_name,
+.events__curitem_name,
+.events__nextitem_name
+{
+    margin: auto;
+}
+
+.important_events__item_time{
+    font-size: 60px;
+    
+    color: #585858;
+    font-family: 'Russo One', sans-serif;
+
+}
+.important_events__item_name{
+    font-size: 70px;
+    
+    font-family: 'Rubik Dirt', cursive;
+    
+}
+
+
+
+.events__preitem_time::after,
+.events__curitem_time::after,
+.events__nextitem_time::after,
+.important_events__item_time::after {
+    content: "";
+    height: 1px;
+    DISPLAY: block;
+    margin: AUTO auto;
+}
+.events__nextitem_time::after,
+.events__curitem_time::after,
+.important_events__item_time::after 
+{
+    background-color: #EE7C15;
+}
+.events__preitem_time::after {
+    background-color: #DCDCDC;
+}

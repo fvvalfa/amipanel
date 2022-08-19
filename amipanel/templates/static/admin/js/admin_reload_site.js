@@ -1,3 +1,7 @@
+
+
+
+
 $(document).ready(function() {
 
 $("#button_reload_site").click(function(e) {
@@ -8,4 +12,6 @@ $("#button_reload_site").click(function(e) {
         data: { csrfmiddlewaretoken: getCookie('csrftoken') }
     });
 });
+
 });
+

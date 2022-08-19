@@ -7,3 +7,45 @@
     background-color: black;
     color: aliceblue;
 }
+
+.send_file_button{
+    padding: 10px;
+    border-radius: 10px;
+    border: 0px;
+    cursor: pointer;
+    margin-left: 10px;
+    background-color: blue;
+    color: aliceblue;
+}
+
+.form-select-file {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.filelabel  {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border:2px dashed grey;
+    border-radius:5px;
+    padding:1.2em
+}
+
+.form-select-file .form-group
+{
+    padding:1em;
+    margin:1em;
+
+}
+.form-select-file input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}
+.form-select-file .label_input{width:120px;border:2px dashed grey;border-radius:5px;display:block;padding:1.2em;transition:border 300ms ease;cursor:pointer;text-align:center}
+.form-select-file .label_input i{display:block;font-size:42px;padding-bottom:16px}
+.form-select-file .label_input i,
+.form-select-file .label_input .title
+    {color:grey;transition:200ms color}
+.form-select-file.label_input:hover{border:2px solid darkgray}
+.form-select-file .label_input:hover i,
+.form-select-file .label_input:hover .title{color:darkgrey}

@@ -1,0 +1,83 @@
+.weather {
+    display: flex;
+    flex-direction: column;
+    
+    margin-left: 50px;
+    padding: 10px 10px;
+}
+
+.weather_main_parameter {
+    display: flex;
+    flex-direction: row;
+}
+
+.weather_add_parameter {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.weather_city {
+    font-size: 30px;
+    line-height: 24px;
+    color: #585858;
+}
+
+.weather__icon {}
+
+.weather_temp {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 43px;
+    margin-left: 10px;
+    /* AmiOrange */
+
+    color: #EE7C15;
+}
+
+.weather_main_detailed {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+
+.weather_detailed_status,
+.weather_feels_like  {
+    font-size: 20px;
+    line-height: 24px;
+    color: #EE7C15;
+}
+
+
+
+.weather_wind {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.weather_humidity {    
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+}
+
+.weather_pressure {
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+}
+
+
+.weather_icon{
+    margin-right: 6px;
+}
+
+.weather_wind_item {
+    
+}
+
+.weather_humidity_item {}
+
+.weather_pressure_item {}

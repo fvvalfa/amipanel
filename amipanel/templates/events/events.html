@@ -1,3 +1,29 @@
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/events_style.css' %}">
+
+
+{% if exists_important == True %}
+<div class="events__header">Важное событие</div>
+<div class="events">
+  {% for event in cur_eventvalue %}
+
+  {% if event.important == True %}
+
+
+  <div class="row g-0">
+    <div class="events__curitem">
+      <div class="important_events__item_time">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}
+      </div>
+      <div class="important_events__item_name">{{event.event_name}}</div>
+    </div>
+  </div>
+
+  {% endif %}
+  {% endfor %}
+</div>
+
+
+{% else %}
 <div class="events__header">События сегодня</div>
 
 {% if pre_eventvalue.count == 0 and cur_eventvalue.count == 0 and next_eventvalue.count == 0 %}
@@ -8,7 +34,7 @@
   {% for event in pre_eventvalue %}
 
 
-  <div class="row">
+  <div class="row g-0">
     <div class="events__preitem">
       <div class="events__preitem_time">{{event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
       <div class="events__preitem_name">{{event.event_name}}</div>
@@ -19,20 +45,27 @@
   {% endfor %}
 
   {% for event in cur_eventvalue %}
-  <div class="row">
+  <div class="row g-0">
     <div class="events__curitem">
       <div class="events__curitem_time">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
       <div class="events__curitem_name">{{event.event_name}}</div>
     </div>
   </div>
   {% endfor %}
-  {% for event in next_eventvalue %}
-  <div class="row">
-    <div class="events__nextitem">
-      <div class="events__nextitem_time">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }} </div>
-      <div class="events__nextitem_name">{{event.event_name}}</div>
-    </div>
-  </div>
-  {% endfor %}
 
-  {% endif %}
+  {% for event in next_eventvalue %}
+  <div class="row g-0">
+    
+    {% if event.important == True %}
+        <div class="events__next_importantitem">
+      {% else %}
+      <div class="events__nextitem">
+      {% endif %}
+        <div class="events__nextitem_time">{{ event.start_event | date:"H:i" }}-{{ event.stop_event | date:"H:i" }}</div>
+        <div class="events__nextitem_name">{{event.event_name}}</div>
+      </div>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+    {% endif %}

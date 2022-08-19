@@ -22,6 +22,7 @@ from amipanel.views import show_home_page
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('', show_home_page),
     path('get_calendar/', include('workcalendar.urls')),
     path('get_birthdays/', include('birthdays.urls')),

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'needreload.apps.NeedreloadConfig',
     'weather.apps.WeatherConfig',
     'django_extensions',
+    'rangefilter',
     
     
 ]

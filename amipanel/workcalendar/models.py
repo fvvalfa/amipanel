@@ -2,8 +2,8 @@ import calendar
 import locale
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
-
-
+from django.contrib import admin
+from django.utils.html import format_html
 # class NameDay(models.Model):
 #     Name = models.CharField(max_length=20)
 
@@ -18,14 +18,18 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class CalendarDays(models.Model):
     """Список дней с указанием количества часов """
-    day = models.DateField(unique=True)
-    hours = models.IntegerField()
+    day = models.DateField(verbose_name='День',unique=True)
+    hours = models.IntegerField(verbose_name='Рабочие часы', default=8)
+    def __str__(self):
+        return self.day.strftime('%d-%m-%Y')
 
     @property
+    @admin.display(description='День недели')
     def day_of_the_week(self):
         # my_date =
         locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
         return ''.join(calendar.day_name[self.day.weekday()])
+        
 
     class Meta():
         db_table='calendardays'

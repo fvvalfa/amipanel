@@ -11,7 +11,7 @@ def get_events_http_by_date(request):
     year = request.GET.get('year', None)
     month = request.GET.get('month', None)
     day = request.GET.get('day', None)
-    events = events.get_events_by_date(year, month, day)
+    events = events.get_events_by_date()
     if events.count()==0:
         return HttpResponse('<div> Сегодня нет событий </div>')
     
@@ -29,29 +29,18 @@ def get_events_http_by_date(request):
 
 def get_events_by_date(request):
     events = Events()
-    year = request.GET.get('year', 0)
-    month = request.GET.get('month', 0)
-    day = request.GET.get('day', 0)
-    events = events.get_events_by_date(int(year), int(month), int(day))
-    # if events.count()==0:
-    #     return HttpResponse('<div> Сегодня нет событий </div>')
-    
-    # events_results = []
-    # add = events_results.append
-    # eventitem:Events
-    
+    # year = request.GET.get('year', 0)
+    # month = request.GET.get('month', 0)
+    # day = request.GET.get('day', 0)
+    #events = events.get_events_by_date(int(year), int(month), int(day))
+    events = events.get_events_by_date()
+    exists_important=False
+    item:Events
+    for item in events['cur_eventvalue']:
+        if item.important==True:
+            exists_important=True
 
-    # for eventitem in events:
-    #     events_results.append(
-    #         {
-    #             'start_event':eventitem.start_event,
-    #             'stop_event':eventitem.start_event+datetime.timedelta(minutes=eventitem.duration),
-    #             'event_name':eventitem.event_name
-    #      }
-    #      )
-        
-    #    {'pre_eventvalue':pre_eventvalue,'cur_eventvalue':cur_eventvalue,'next_eventvalue':next_eventvalue }
-    context =  {'pre_eventvalue':events['pre_eventvalue'],'cur_eventvalue':events['cur_eventvalue'],'next_eventvalue':events['next_eventvalue'] }
+    context =  {'pre_eventvalue':events['pre_eventvalue'],'cur_eventvalue':events['cur_eventvalue'],'next_eventvalue':events['next_eventvalue'],'exists_important':exists_important}
     return render(request, 'events/events.html', context)
     # return render(request, 'events/events.html', {'events':events })
 

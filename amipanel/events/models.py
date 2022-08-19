@@ -9,8 +9,10 @@ from django.forms import DurationField
 class Events(models.Model):
     start_event = models.DateTimeField('Начало события')
     #stop_event = models.DateTimeField('Окончание события', null=True)
-    duration = models.DurationField('Продолжительность', null=True)
+    duration = models.DurationField('Продолжительность', null=True, help_text='Формат- Часы:Минуты:Секунды')
     event_name = models.CharField('Событие', max_length=150)
+    important = models.BooleanField('Важное событие', default=False)
+    
     
     @property
     def stop_event(self):
@@ -27,9 +29,9 @@ class Events(models.Model):
         ordering = ['start_event']
     #stop_event.short_description = 'Окончание события'
 
-    def get_events_by_date(self, year, month, day):
+    def get_events_by_date(self):
         now = timezone.now()
-        date=datetime.date(year, month, day)
+        date=now.date()
         try:
             #Поиск прошедших событий 
             pre_eventvalue = Events.objects.annotate(stop_event_calc=ExpressionWrapper(F('start_event')+F('duration'), output_field=models.DateTimeField())).filter(Q(start_event__date=date)).filter(stop_event_calc__lt=now)
