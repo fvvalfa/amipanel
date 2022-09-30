@@ -49,3 +49,9 @@
 .form-select-file.label_input:hover{border:2px solid darkgray}
 .form-select-file .label_input:hover i,
 .form-select-file .label_input:hover .title{color:darkgrey}
+
+
+.preview_image{
+    width: 185px;
+    height: 250px;
+}

@@ -1,5 +1,3 @@
-from ast import Try
-
 from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.contrib import admin
@@ -11,8 +9,9 @@ from django.shortcuts import render
 from django.urls import path, reverse
 from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 from django.utils.html import format_html
-# Register your models here.
+
 from django.utils import timezone
+from django.contrib import messages
 
 
 class CsvImportForm(forms.Form):
@@ -29,7 +28,7 @@ class CsvImportForm(forms.Form):
 
 class CalendarDayAdmin(admin.ModelAdmin):
     list_display=('day', 'hours', 'day_of_the_week')
-    list_filter = (('day', DateRangeFilter), )
+    list_filter = (('day', DateRangeFilter), ('day', DateFieldListFilter),)
 
     list_editable = ('hours',)
 
@@ -43,8 +42,12 @@ class CalendarDayAdmin(admin.ModelAdmin):
             csv_file = request.FILES['csv_upload']
             file_data = csv_file.read().decode('utf-8-sig')
             csv_data = file_data.replace('\r','').split('\n')
-            
+            process_line=0
             for item in csv_data:
+                process_line=process_line+1
+                if len(fields)<4:
+                    continue
+
                 fields = item.split(';')
                 try:
                     field_day = datetime.strptime(fields[0], '%d.%m.%Y')
@@ -52,6 +55,7 @@ class CalendarDayAdmin(admin.ModelAdmin):
                 except ValueError:
                     field_day=None
                     field_hour = None
+                    messages.warning(request,'Ошибка при обработке файла. Строка номер - {0}. Формат файла - Дата(день.месяц.год);Количество рабочих часов;'.format(process_line))
                 if field_day == None  or field_hour == None:
                     break
                 values_for_update={"day":field_day, "hours": field_hour}
@@ -64,6 +68,7 @@ class CalendarDayAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(url)
         form=CsvImportForm()
         data={'form': form}
+        
         return render(request, 'admin/csv_upload.html', data)
 
 #  инициализация значение в поле часы 

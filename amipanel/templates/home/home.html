@@ -9,7 +9,7 @@
     var pre_weather_timer = new Date();
     pre_weather_timer.setSeconds(0)
     var pre_event_timer = new Date();
-    pre_event_timer.setSeconds(0);
+    pre_event_timer.setSeconds(2);
     
 
     var year = d.getFullYear();
@@ -50,8 +50,8 @@
             pre_weather_timer.setSeconds(0)
             $.ajax({
                 type: "GET",
-                url: "{% url 'weather' %}"  // URL to your view that serves new info
-                // data: {'append_increment': append_increment}
+                url: "{% url 'weather' %}",  // URL to your view that serves new info
+                data: {'city': 'Moscow,RU'}
             })
                 .done(function (response) {
                     $('#weatherplace').html(response);
@@ -147,7 +147,12 @@
                         <div class="col-md-6 events">
                             <div id="placeevents"></div>
                         </div>
+                        
                         <div class="col-md-6 calendar">
+                          {% comment %}
+                            <button id="button_reload_site">Влево</button>
+                            {% endcomment %}
+                            <form action="/"></form>
                             <div id="placecalendar" style="padding: 0px 20px 0px 0px;"></div>
                             <div id="placebirthdays" style="padding: 0px 20px 0px 0px;">Дни рождения</div>
                         </div>

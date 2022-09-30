@@ -32,24 +32,10 @@ function clock() {
     setTimeout("clock()", 1000);
 }
 
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 
 
 var slideIndex = 0;
+var slides_timeout;
 
 
 function showSlides() {
@@ -67,17 +53,46 @@ function showSlides() {
     slides[slideIndex].style.display = "block";  
     //dots[slideIndex-1].className += " active";
     slideIndex++;
-    setTimeout(showSlides, 7000); // Change image every 2 seconds
+    slides_timeout = setTimeout(showSlides, 7000); // Change image every 2 seconds
     
 }
 
+function startSlides(){
+    var slideIndex = 0;
+    if (typeof slides_timeout != "undefined")
+     { clearTimeout( slides_timeout)}
+    showSlides()
+}
 
+var d1 = new Date();
+var month_num1 = d.getMonth()
+var year1 = d.getFullYear();
 
 $( document ).ready(function(){
 
-
     clock();
+    $("#button_reload_site").click(function(e) {
+        e.preventDefault();
+        month_num1=month_num1-1;
+        $.ajax({
+            type: "GET",
+            url: "get_calendar/",
+            data: { 
+                
+                'year':year1,
+                'month':month_num1
+             }})
+             .done(function (response) {
+                $('#placecalendar').html(response);
 
-}
+             });
+
+            });
+    });
+
+
     
-);
+
+
+    
+    
